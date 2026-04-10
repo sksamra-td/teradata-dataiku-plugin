@@ -36,7 +36,6 @@ To install the Teradata plugin for Dataiku from a zip file on your client, perfo
 5. Click on **UPLOAD** button.
 6. Upon a successful upload, continue with building the plugin code environment. When the plugin is installed, you typically need to refresh the environment so that changes take effect. One way is to return to the plugins page and select the **INSTALLED** tab on the resulting screen. Then, push the **RELOAD ALL** button on the top right corner of the screen. Another way is to do a hard refresh by pushing (Ctrl + F5) on all open Dataiku browsers.
 
-
 ## References
 
 For additional information, see the following links on docs.teradata.com:
