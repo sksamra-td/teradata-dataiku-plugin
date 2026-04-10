@@ -15,7 +15,7 @@ The Teradata plugin enhances Dataiku's built-in interaction capabilities with Te
 
 ## Requirements
 
-For complete details, please see the Teradata plugin user guide under the [official plugin page](https://www.dataiku.com/product/plugins/teradata).
+For complete details, please see the Teradata plugin user guide under the [official user guide]([https://www.dataiku.com/product/plugins/teradata](https://github.com/Teradata/teradata-dataiku-plugin/blob/9918d1fb97c514d79706e73fd27dd5a00d536431/UserGuide.pdf)).
 
 To use the Teradata plugin:
 
@@ -25,7 +25,7 @@ To use the Teradata plugin:
 
 ## Installation
 
-For complete details, please see the Teradata plugin user guide under the [official plugin page](https://www.dataiku.com/product/plugins/teradata).
+For complete details, please see the Teradata plugin user guide under the [official user guide]([https://www.dataiku.com/product/plugins/teradata](https://github.com/Teradata/teradata-dataiku-plugin/blob/9918d1fb97c514d79706e73fd27dd5a00d536431/UserGuide.pdf)).
 
 To install the Teradata plugin for Dataiku from a zip file on your client, perform the following:
 
