@@ -1,0 +1,134 @@
+{
+	  "json_schema_major_version": "1",
+	  "json_schema_minor_version": "1",
+	  "json_content_version": "1",
+	  "function_name": "TD_TextMorph",
+	  "function_version": "1.0",
+	  "function_type": "fastpath",
+	  "function_category": "Text Analysis",
+	  "function_alias_name": "TD_TextMorph",
+	  "function_r_name": "td.textmorph",
+	  "short_description": "This function is used to generate morph of given words in the input dataset.",
+	  "long_description": "This function is used to generate morph of given words in the input dataset.",
+	  "input_tables": [
+	    {
+	      "requiredInputKind": [
+	        "PartitionByAny"
+	      ],
+	      "isOrdered": false,
+	      "partitionByOne": false,
+	      "name": "InputTable",
+	      "alternateNames": [],
+	      "isRequired": true,
+	      "rDescription": "The table that contains the input dataset.",
+	      "description": "The table that contains the input dataset.",
+	      "datatype": "TABLE_ALIAS",
+	      "allowsLists": false,
+	      "rName": "data",
+	      "useInR": true,
+	      "rOrderNum": 1
+	    }
+	  ],
+	  "argument_clauses": [
+	    {
+	      "targetTable": [
+	        "InputTable"
+	      ],
+	      "checkDuplicate": true,
+	      "allowedTypes": [],
+	      "allowedTypeGroups": [
+	        "STRING"
+	      ],
+	      "matchLengthOfArgument": "",
+	      "allowPadding": false,
+	      "name": "WordColumn",
+	      "alternateNames": [],
+	      "isRequired": true,
+	      "rDescription": "Specify the name of the input column that contains words, for which morphs to be generated.",
+	      "description": "Specify the name of the input column that contains words, for which morphs to be generated.",
+	      "datatype": "COLUMNS",
+	      "allowsLists": false,
+	      "rName": "word.column",
+	      "useInR": true,
+	      "rOrderNum": 2
+	    },
+	    {
+	        "permittedValues": [
+            "NOUN",
+            "VERB",
+            "ADV",
+		    "ADJ"
+          ],
+          "isOutputColumn": false,
+		  "matchLengthOfArgument": "",
+          "allowPadding": false,
+          "name": "POS",
+          "alternateNames": [],
+          "isRequired": false,
+          "rDescription": "Specifies the part of speech to output.",
+          "description": "Specifies the part of speech to output.",
+          "datatype": "STRING",
+          "allowsLists": true,
+          "rName": "pos",
+          "useInR": true,
+          "rOrderNum": 3
+	    },
+	    {
+			"defaultValue": false,
+            "name": "SingleOutput",
+            "alternateNames": [],
+            "isRequired": false,
+            "rDescription": " Specify whether to output only one morph for each word. If user specifies 'false', the function outputs all morphs for each word.",
+            "description": " Specify whether to output only one morph for each word. If user specifies 'false', the function outputs all morphs for each word.",
+            "datatype": "BOOLEAN",
+            "allowsLists": false,
+            "rName": "single.output",
+            "useInR": true,
+            "rOrderNum": 4
+	    },
+		{
+			"targetTable": [
+			"InputTable"
+			],
+			"checkDuplicate": true,
+            "allowedTypes": [],
+            "allowedTypeGroups": [
+            "STRING"
+			],
+			"matchLengthOfArgument": "",
+            "allowPadding": false,
+            "name": "POSTagColumn",
+            "alternateNames": [],
+            "isRequired": false,
+            "rDescription": "Specify the name of the input table column that contains the part-of-speech (POS) tags of the words, output by the function TD_POSTagger.",
+            "description": "Specify the name of the input table column that contains the part-of-speech (POS) tags of the words, output by the function TD_POSTagger.",
+            "datatype": "COLUMNS",
+            "allowsLists": false,
+            "rName": "postag.column",
+            "useInR": true,
+            "rOrderNum": 5
+		},
+	    {
+			"targetTable": [
+            "InputTable"
+          ],
+          "checkDuplicate": true,
+          "allowedTypes": [],
+          "allowedTypeGroups": [
+            "ALL"
+          ],
+          "matchLengthOfArgument": "",
+          "allowPadding": false,
+          "name": "Accumulate",
+          "alternateNames": [],
+          "isRequired": false,
+          "rDescription": "Specifies the names of the input columns to copy to the output table.",
+          "description": "Specifies the names of the input columns to copy to the output table.",
+          "datatype": "COLUMNS",
+          "allowsLists": true,
+          "rName": "accumulate",
+          "useInR": true,
+          "rOrderNum": 6		
+	    }
+	  ]
+}

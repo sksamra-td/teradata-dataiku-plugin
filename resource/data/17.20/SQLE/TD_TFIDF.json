@@ -1,0 +1,162 @@
+{
+    "json_schema_major_version": "1",
+    "json_schema_minor_version": "1",
+    "json_content_version": "1",
+    "function_name": "TD_TFIDF",
+    "function_version": "1.0",
+    "function_type": "fastpath",
+    "function_category": "Feature Engineering Transform",
+    "function_alias_name": "TD_TFIDF",
+    "function_r_name": "td.tfidf",
+    "short_description": "This function is used to take any document set and compute the Term Frequency (TF), Inverse Document Frequency (IDF), and Term Frequency * Inverse Document Frequency (TF-IDF) scores for each term.",
+    "long_description": "This function is used to take any document set and compute the Term Frequency (TF), Inverse Document Frequency (IDF), and Term Frequency * Inverse Document Frequency (TF-IDF) scores for each term.",
+    "input_tables": [
+      {
+        "requiredInputKind": [
+          "PartitionByAny"
+        ],
+        "isOrdered": false,
+        "partitionByOne": false,
+        "name": "InputTable",
+        "alternateNames": [],
+        "isRequired": true,
+        "rDescription": "The table that contains the document id and the term.",
+        "description": "The table that contains the document id and the term.",
+        "datatype": "TABLE_ALIAS",
+        "allowsLists": false,
+        "rName": "data",
+        "useInR": true,
+        "rOrderNum": 1
+      }
+    ],
+    "argument_clauses": [
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "INTEGER"
+        ],
+        "requiredLength": 1,
+        "matchLengthOfArgument": "",
+        "allowPadding": true,
+        "name": "DocIdColumn",
+        "alternateNames": [],
+        "isRequired": true,
+        "rDescription": "Specifies the name of the input table column that contains the document identifier.",
+        "description": "Specifies the name of the input table column that contains the document identifier.",
+        "datatype": "COLUMN_NAMES",
+        "allowsLists": false,
+        "rName": "doc.id.column",
+        "useInR": true,
+        "rOrderNum": 2
+      },
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "STRING"
+        ],
+        "requiredLength": 1,
+        "matchLengthOfArgument": "",
+        "allowPadding": true,
+        "name": "TokenColumn",
+        "alternateNames": [],
+        "isRequired": true,
+        "rDescription": "Specifies the name of the input table column that contains the tokens.",
+        "description": "Specifies the name of the input table column that contains the tokens.",
+        "datatype": "COLUMN_NAMES",
+        "allowsLists": false,
+        "rName": "token.column",
+        "useInR": true,
+        "rOrderNum": 3
+      },
+      {
+        "permittedValues": [
+          "BOOL",
+          "COUNT",
+          "NORMAL",
+          "LOG",
+          "AUGMENT"
+        ],
+        "defaultValue": "NORMAL",
+        "isOutputColumn": false,
+        "name": "TFNormalization",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specifies the normalization method for calculating the term frequency (TF). Default: 'NORMAL'.",
+        "description": "Specifies the normalization method for calculating the term frequency (TF). Default: 'NORMAL'.",
+        "datatype": "STRING",
+        "allowsLists": false,
+        "rName": "tf.normalization",
+        "useInR": true,
+        "rOrderNum": 4
+      },
+      {
+        "permittedValues": [
+          "UNARY",
+          "LOG",
+          "LOGNORM",
+          "SMOOTH"
+        ],
+        "defaultValue": "LOG",
+        "isOutputColumn": false,
+        "name": "IDFNormalization",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specifies the normalization method for calculating the inverse document frequency (IDF). Default: 'LOG'.",
+        "description": "Specifies the normalization method for calculating the inverse document frequency (IDF). Default: 'LOG'.",
+        "datatype": "STRING",
+        "allowsLists": false,
+        "rName": "idf.normalization",
+        "useInR": true,
+        "rOrderNum": 5
+      },
+      {
+        "permittedValues": [
+          "L2",
+          "L1",
+          "NONE"
+        ],
+        "defaultValue": "NONE",
+        "isOutputColumn": false,
+        "name": "Regularization",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specifies the regularization method for calculating the TF-IDF score. Default: 'NONE'.",
+        "description": "Specifies the regularization method for calculating the TF-IDF score. Default: 'NONE'.",
+        "datatype": "STRING",
+        "allowsLists": false,
+        "rName": "regularization",
+        "useInR": true,
+        "rOrderNum": 6
+      },
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "ALL"
+        ],
+        "matchLengthOfArgument": "",
+        "allowPadding": true,
+        "name": "Accumulate",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specifies the names of the input table columns to copy to the output table.",
+        "description": "Specifies the names of the input table columns to copy to the output table.",
+        "datatype": "COLUMNS",
+        "allowsLists": true,
+        "rName": "accumulate",
+        "useInR": true,
+        "rOrderNum": 7
+      }
+    ]
+  }

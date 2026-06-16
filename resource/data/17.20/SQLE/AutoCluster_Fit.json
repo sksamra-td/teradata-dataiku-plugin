@@ -1,0 +1,186 @@
+{
+  "json_schema_major_version": "1",
+  "json_schema_minor_version": "1",
+  "json_content_version": "1",
+  "function_name": "AutoCluster_Fit",
+  "function_version": "1.0",
+  "function_alias_name": "AutoCluster_Fit",
+  "function_type": "fastpath",
+  "function_category": "Model Training",
+  "short_description": "Performs automated machine learning for clustering tasks.",
+  "long_description": "Automates the process of model training and selection for clustering problems by evaluating multiple algorithms and metrics.",
+  "input_tables": [
+    {
+      "requiredInputKind": [
+        "PartitionByAny"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "input",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Input table containing training data.",
+      "description": "Input table containing training data.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "data",
+      "useInR": true,
+      "rOrderNum": 1
+    }
+  ],
+  "argument_clauses": [
+    {
+      "targetTable": [
+        "input"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "ALL"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "TargetColumn",
+      "alternateNames": [
+        "ResponseColumn"
+      ],
+      "isRequired": true,
+      "rDescription": "Specifies the name of the column that contains the target values for training.",
+      "description": "Specifies the name of the column that contains the target values for training.",
+      "datatype": "COLUMNS",
+      "allowsLists": false,
+      "rName": "target.column",
+      "useInR": true,
+      "rOrderNum": 2
+    },
+    {
+      "targetTable": [
+        "input"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "ALL"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "IdColumn",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the unique identifier column in the dataset. By default, function internally creates a unique id column 'automl_id' if \"id_column\" is not provided.",
+      "description": "Specifies the unique identifier column in the dataset. By default, function internally creates a unique id column 'automl_id' if \"id_column\" is not provided.",
+      "datatype": "COLUMNS",
+      "allowsLists": false,
+      "rName": "id.column",
+      "useInR": true,
+      "defaultValue": "automl_id"
+    },
+    {
+      "name": "Algorithm",
+      "isRequired": true,
+      "datatype": "STRING",
+      "allowsLists": true,
+      "rName": "include",
+      "permittedValues": [
+        "KMeans",
+        "GaussianMixture"
+      ],
+      "description": "Specifies the model algorithms to be used for model training phase. By default, two models are used for training for clustering."
+    },
+    {
+      "name": "Verbose",
+      "isRequired": false,
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "rName": "verbose",
+      "defaultValue": 0,
+      "permittedValues": [
+        0,
+        1,
+        2
+      ],
+      "description": "Specifies the detailed execution steps based on verbose level. 0: prints progress bar/leaderboard; 1: prints execution steps; 2: prints intermediate data."
+    },
+    {
+      "name": "MaxRuntimeSecs",
+      "isRequired": false,
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "rName": "max.runtime.secs",
+      "description": "Specifies the time limit in seconds for model training."
+    },
+    {
+      "name": "StoppingMetric",
+      "isRequired": false,
+      "datatype": "STRING",
+      "allowsLists": false,
+      "rName": "stopping.metric",
+      "permittedValues": [
+        "SILHOUETTE",
+        "CALINSKI",
+        "DAVIES"
+      ],
+      "description": "Specifies the stopping metrics for stopping tolerance in model training. This argument is required if stopping_tolerance is set."
+    },
+    {
+      "name": "StoppingTolerance",
+      "isRequired": false,
+      "datatype": "DOUBLE",
+      "allowsLists": false,
+      "rName": "stopping.tolerance",
+      "description": "Specifies the stopping tolerance for stopping metrics in model training. This argument is required if stopping_metric is set."
+    },
+    {
+      "name": "MaxModels",
+      "isRequired": false,
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "rName": "max.models",
+      "description": "Specifies the maximum number of models to be trained."
+    },
+    {
+      "name": "CustomConfigFile",
+      "isRequired": false,
+      "datatype": "STRING",
+      "allowsLists": false,
+      "rName": "custom.config.file",
+      "description": "Specifies the path of JSON file in case of custom run."
+    },
+    {
+      "name": "Volatile",
+      "isRequired": false,
+      "datatype": "BOOLEAN",
+      "allowsLists": false,
+      "rName": "volatile",
+      "defaultValue": false,
+      "description": "Specifies whether to put the interim results of the functions in a volatile table or not."
+    },
+    {
+      "name": "Persist",
+      "isRequired": false,
+      "datatype": "BOOLEAN",
+      "allowsLists": false,
+      "rName": "persist",
+      "defaultValue": false,
+      "description": "Specifies whether to persist the interim results of the functions in a table or not."
+    },
+    {
+      "name": "Seed",
+      "isRequired": false,
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "rName": "seed",
+      "defaultValue": 42,
+      "description": "Specifies the random seed for reproducibility."
+    },
+    {
+      "name": "RaiseErrors",
+      "isRequired": false,
+      "datatype": "BOOLEAN",
+      "allowsLists": false,
+      "rName": "raise.errors",
+      "defaultValue": false,
+      "description": "Specifies whether to raise errors or warnings for non-blocking errors."
+    }
+  ]
+}

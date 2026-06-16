@@ -225,7 +225,8 @@ if scoring_type == 'onnx':
 logging.info(f"Prediction Query ==> {query}")
 
 
-query_band = "SET QUERY_BAND='appname=dataiku;version=3.4;" + "function= BYOM Scoring"  + ";' FOR SESSION;"
+query_band = "SET QUERY_BAND='org=teradata-internal-telem;appname=dataiku;version=4.0;" + "function= BYOM Scoring" + ";' FOR SESSION;"
+
 # Execute the query
 try:
     # dataiku's query_to_df's pre_query parameter seems to not work. This is a work-around to ensure that the 

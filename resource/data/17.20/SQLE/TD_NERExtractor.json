@@ -1,0 +1,145 @@
+{
+  "json_schema_major_version": "1",
+  "json_schema_minor_version": "1",
+  "json_content_version": "1",
+  "function_name": "TD_NERExtractor",
+  "function_version": "1.0",
+  "function_type": "fastpath",
+  "function_category": "Text Analysis",
+  "function_alias_name": "TD_NERExtractor",
+  "function_r_name": "aa.td_nerextractor",
+  "ref_function_r_name": "aa.td_nerextractor",
+  "short_description": "Perform Named Entity Recognition (NER) on input text according to user-defined dictionary words or regular expression (regex) patterns.",
+  "long_description": "Perform Named Entity Recognition (NER) on input text according to user-defined dictionary words or regular expression (regex) patterns.",
+  "input_tables": [
+    {
+      "requiredInputKind": [
+        "PartitionByAny"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "inputtable",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specifies the table containing the input text data.",
+      "description": "Specifies the table containing the input text data.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "data",
+      "useInR": true,
+      "rOrderNum": 1
+    },
+    {
+      "requiredInputKind": [
+        "Dimension"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "dict",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specifies the table containing user-defined dictionary words and their entity label.",
+      "description": "Specifies the table containing user-defined dictionary words and their entity label.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "user.defined.data",
+      "useInR": true,
+      "rOrderNum": 2
+    },
+    {
+      "requiredInputKind": [
+        "Dimension"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "rules",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specifies the table containing user-defined regex patterns and their entity label.",
+      "description": "Specifies the table containing user-defined regex patterns and their entity label.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "rules.data",
+      "useInR": true,
+      "rOrderNum": 3
+    }
+  ],
+  "argument_clauses": [
+    {
+      "targetTable": [
+        "inputtable"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "TextColumn",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specify the name of the input table column that will be used for NER search.",
+      "description": "Specify the name of the input table column that will be used for NER search.",
+      "datatype": "COLUMNS",
+      "allowsLists": true,
+      "rName": "text.column",
+      "useInR": true,
+      "rFormulaUsage": true,
+      "rOrderNum": 4
+    },
+    {
+      "defaultValue": "EN",
+      "permittedValues": [
+        "EN"
+      ],
+      "isOutputColumn": false,
+      "name": "InputLanguage",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specify input language. Acceptable values are EN (English).",
+      "description": "Specify input language. Acceptable values are EN (English).",
+      "datatype": "STRING",
+      "allowsLists": false,
+      "rName": "input.language",
+      "useInR": true,
+      "rOrderNum": 5
+    },
+    {
+      "defaultValue": 1,
+      "lowerBound": 1,
+      "upperBound": 10,
+      "lowerBoundType": "INCLUSIVE",
+      "upperBoundType": "INCLUSIVE",
+      "allowNaN": false,
+      "name": "ShowContext",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specify the number of words before and after the matched entity. If leading or trailing words are less than ShowContext ellipsis (...) will be added. Must be a positive value less than 10.",
+      "description": "Specify the number of words before and after the matched entity. If leading or trailing words are less than ShowContext ellipsis (...) will be added. Must be a positive value less than 10.",
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "rName": "show.context",
+      "useInR": true,
+      "rOrderNum": 6
+    },
+    {
+      "targetTable": [
+        "inputtable"
+      ],
+      "checkDuplicate": false,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "ALL"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "Accumulate",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specify the names of the input table columns that need to be copied from the input test table to output.",
+      "description": "Specify the names of the input table columns that need to be copied from the input test table to output.",
+      "datatype": "COLUMNS",
+      "allowsLists": true,
+      "rName": "accumulate",
+      "useInR": true,
+      "rOrderNum": 7
+    }
+  ]
+}
+

@@ -1,0 +1,221 @@
+{
+  "json_schema_major_version": "1",
+  "json_schema_minor_version": "1",
+  "json_content_version": "1",
+  "function_name": "TD_Shap",
+  "function_version": "1.0",
+  "commence_db_version": "",
+  "change_db_version": "",
+  "function_type": "fastpath",
+  "function_category": "Model Interpretation",
+  "function_alias_name": "TD_Shap",
+  "function_r_name": "aa.TD_Shap",
+  "ref_function_r_name": "aa.td_glm, aa.td_decisionforest, aa.td_xgboost",
+  "short_description": "Fast path function to get explanation for individual predictions (feature contributions) in a machine learning model",
+  "long_description": "Fast path function to get explanation for individual predictions (feature contributions) in a machine learning model based on the cooperative game theory optimal Shapley values.",
+  "input_tables": [
+    {
+      "name": "InputTable",
+      "isRequired": true,
+      "datatype": "TABLE_ALIAS",
+      "partitionByOne": false,
+      "isOrdered": false,
+      "omitPossible": false,
+      "alternateNames": [],
+      "rDescription": "Specifies the name of the table that contains input dataset.",
+      "description": "Specifies the name of the table that contains input dataset.",
+      "allowsLists": false,
+      "rName": "data",
+      "useInR": true,
+      "rOrderNum": 1
+    },
+    {
+      "requiredInputKind": [
+        "Dimension"
+      ],
+      "name": "ModelTable",
+      "isRequired": true,
+      "datatype": "TABLE_ALIAS",
+      "isOrdered": false,
+      "partitionByOne": false,
+      "rDescription": "Specifies the table containing the model data.",
+      "description": "Specifies the table containing the model data.",
+      "allowsLists": false,
+      "rName": "object",
+      "useInR": true,
+      "rFormulaUsage": false,
+      "rOrderNum": 2
+    }
+  ],
+    "output_tables": [
+    {
+      "name": "GlobalExplanation",
+      "isRequired": false,
+      "datatype": "TABLE_NAME",
+      "isOutputTable": true,
+      "omitPossible": false,
+      "alternateNames": [],
+      "rDescription": "Specifies the mean absolute shapley values for each input feature.",
+      "description": "Specifies the mean absolute shapley values for each input feature.",
+      "allowsLists": false,
+      "rName": "output.table",
+      "useInR": true,
+      "rOrderNum": 3
+    }
+  ],
+  "argument_clauses": [
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "NUMERIC"
+      ],
+      "name": "IDColumn",
+      "isRequired": true,
+      "datatype": "COLUMNS",
+      "requiredLength": 1,
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "alternateNames": [],
+      "rDescription": "Specifies the name of the input table column that contains the IDColumn.",
+      "description": "Specify the name of the InputTable column that contains the unique value to identify the each sample.",
+      "allowsLists": false,
+      "rName": "id.column",
+      "useInR": true,
+      "rOrderNum": 3
+    },
+    {
+      "permittedValues": [
+        "TD_GLM",
+        "TD_DECISIONFOREST",
+        "TD_XGBOOST"
+      ],
+      "name": "TrainingFunction",
+      "isRequired": true,
+      "datatype": "STRING",
+      "isOutputColumn": false,
+      "alternateNames": [],
+      "rDescription": "Specifies the model type name.",
+      "description": "Specifies the model type name on which we want to get explaination for individual predictions (feature contributions).",
+      "allowsLists": false,
+      "rName": "training.function",
+      "useInR": true,
+      "rOrderNum": 4
+    },
+    {
+      "permittedValues": [
+        "REGRESSION",
+        "CLASSIFICATION"
+      ],
+      "name": "ModelType",
+      "isRequired": true,
+      "datatype": "STRING",
+      "defaultValue": "Regression",
+      "isOutputColumn": false,
+      "alternateNames": [],
+      "rDescription": "specifies the operation to be performed on input table.",
+      "description": "specifies the operation to be performed on input table based on target column",
+      "allowsLists": false,
+      "rName": "model.type",
+      "useInR": true,
+      "rOrderNum": 5
+    },
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "NUMERIC"
+      ],
+      "name": "InputColumns",
+      "isRequired": true,
+      "datatype": "COLUMNS",
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "alternateNames": [],
+      "rDescription": "Specify the names of the input table columns that need to be used for training the model (predictors, features or independent variables).",
+      "description": "Specify the names of the input table columns that need to be used for training the model (predictors, features or independent variables).",
+      "allowsLists": true,
+      "rName": "input.columns",
+      "useInR": true,
+      "rOrderNum": 6
+    },
+    {
+      "name": "Detailed",
+      "isRequired": false,
+      "datatype": "BOOLEAN",
+      "isOutputColumn": false,
+      "defaultValue": false,
+      "alternateNames": [],
+      "rDescription": "Specifies whether to output detailed shap information about the forest trees.",
+      "description": "Specifies whether to output detailed shap information about the forest trees i.e. the decision tree and the specific tree information.",
+      "allowsLists": false,
+      "rName": "detailed",
+      "useInR": true,
+      "rOrderNum": 7
+    },
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "ALL"
+      ],
+      "name": "Accumulate",
+      "isRequired": false,
+      "datatype": "COLUMNS",
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "alternateNames": [],
+      "rDescription": "Specifies the names of the input columns to copy to the output table.",
+      "description": "Specifies the names of the input columns to copy to the output table.",
+      "allowsLists": true,
+      "rName": "accumulate",
+      "useInR": true,
+      "rOrderNum": 8
+    },
+    {
+      "name": "NumParallelTrees",
+      "isRequired": false,
+      "datatype": "INTEGER",
+      "defaultValue": 1000,
+      "lowerBound": 1,
+      "upperBound": 10000,
+      "lowerBoundType": "INCLUSIVE",
+      "upperBoundType": "INCLUSIVE",
+      "allowNaN": false,
+      "alternateNames": [],
+      "rDescription": "Specify the number of parallel boosted trees.Each boosted tree operates on a sample of data that fits in an AMP's memory. By default, NumBoostedTrees is chosen equal to the number of AMPs with data.",
+      "description": "Specify the number of parallel boosted trees.Each boosted tree operates on a sample of data that fits in an AMP's memory. By default, NumBoostedTrees is chosen equal to the number of AMPs with data.",
+      "allowsLists": false,
+      "rName": "num.parallel.trees",
+      "useInR": true,
+      "rOrderNum": 9
+    },
+    {
+      "name": "NumBoostRounds",
+      "isRequired": false,
+      "datatype": "INTEGER",
+      "defaultValue": 10,
+      "lowerBound": 1,
+      "upperBound": 100000,
+      "lowerBoundType": "INCLUSIVE",
+      "upperBoundType": "INCLUSIVE",
+      "allowNaN": false,
+      "alternateNames": [],
+      "rDescription": "Specifies the number of iterations to boost the weak classifiers. The iterations must be an INTEGER in the range [1, 100000].",
+      "description": "Specifies the number of iterations to boost the weak classifiers. The iterations must be an INTEGER in the range [1, 100000].",
+      "allowsLists": false,
+      "rName": "num.boost.rounds",
+      "useInR": true,
+      "rOrderNum": 10
+    }
+  ]
+}

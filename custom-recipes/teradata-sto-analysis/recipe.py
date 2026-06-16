@@ -642,7 +642,7 @@ logging.info('Executing SELECT Query...')
 
 if is_vantage_cloud:
     # setting QUERYBAND
-    query_band = "SET QUERY_BAND='appname=dataiku;version=3.4;" + "function= In Vantage Scripting(APPLY)"  + ";' FOR SESSION;"
+    query_band = "SET QUERY_BAND='org=teradata-internal-telem;appname=dataiku;version=4.0;" + "function= In Vantage Scripting(APPLY)" + ";' FOR SESSION;"
     logging.info('setQUERYBAND')  
     qb = executor_query(executor, query_band)
     logging.info(ApplyQuery)
@@ -656,7 +656,7 @@ else:
         logging.info(replaceFileQuery)
     logging.info('setQUERYBAND')
     # setting QUERYBAND
-    query_band = "SET QUERY_BAND='appname=dataiku;version=3.4;" + "function= In Vantage Scripting(STO)"  + ";' FOR SESSION;"
+    query_band = "SET QUERY_BAND='org=teradata-internal-telem;appname=dataiku;version=4.0;" + "function= In Vantage Scripting(STO)" + ";' FOR SESSION;"
     logging.info(query_band)
     logging.info(STOQuery)
     selectResult = executor_query2(executor, STOQuery,[databaseQuery, setSessionQuery,query_band])

@@ -1,0 +1,267 @@
+{
+  "json_schema_major_version": "1",
+  "json_schema_minor_version": "2",
+  "json_content_version": "1",
+  "function_name": "TD_SMOTE",
+  "function_version": "1.0",
+  "function_type": "fastpath",
+  "function_category": "Feature Engineering Transform",
+  "function_alias_name": "TD_SMOTE",
+  "function_r_name": "aa.td_smote",
+  "ref_function_r_name": "aa.td_smote",
+  "short_description": "This function generates data by oversampling a minority class.",
+  "long_description": "This function generates data by oversampling a minority class using smote, adasyn, borderline-2 or smote-nc algorithms.",
+  "input_tables": [
+    {
+      "requiredInputKind": [
+        "PartitionByAny"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "InputTable",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specifies the table containing the input data.",
+      "description": "Specifies the table containing the input data.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "data",
+      "useInR": true,
+      "rOrderNum": 1
+    },
+    {
+      "requiredInputKind": [
+        "Dimension"
+      ],
+
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "EncodingsTable",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the table created with TD_OrdinalEncodingFit output, using the categorical input columns as TargetColumns. Used and required only with smotenc.",
+      "description": "Specifies the table creted with TD_OrdinalEncodingFit output, using the categorical input columns as TargetColumns. Used and required only with smotenc.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "encoding.data",
+      "useInR": true,
+      "rOrderNum": 2
+    }
+  ],
+  "argument_clauses": [
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "INTEGER"
+      ],
+
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "IDColumn",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "specifies the name of the column that uniquely identifies a data sample in the input table.",
+      "description": "specifies the name of the column that uniquely identifies a data sample in the input table.",
+      "datatype": "COLUMNS",
+      "allowsLists": false,
+      "rName": "id.column",
+      "useInR": true,
+      "rOrderNum": 3
+    },
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "NUMERIC"
+      ],
+      
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "ResponseColumn",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "specifies the name of the input table column that contains the numeric value to be used as the response value for a sample.",
+      "description": "specifies the name of the input table column that contains the numeric value to be used as the response value for a sample.",
+      "datatype": "COLUMNS",
+      "allowsLists": false,
+      "rName": "response.column",
+      "useInR": true,
+      "rOrderNum": 4
+    },    
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "NUMERIC"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "InputColumns",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "specifies the name of the input table columns that the function uses for oversampling.",
+      "description": "specifies the name of the input table columns that the function uses for oversampling.",
+      "datatype": "COLUMNS",
+      "allowsLists": true,
+      "rName": "input.columns",
+      "useInR": true,
+      "rOrderNum": 5
+    },
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "STRING"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "CategoricalInputColumns",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "specifies the name of the categorical columns in the input table that the function uses for oversampling with smotenc.",
+      "description": "specifies the name of the categorical columns in the input table that the function uses for oversampling with smotenc.",
+      "datatype": "COLUMNS",
+      "allowsLists": true,
+      "rName": "categorical.columns",
+      "useInR": true,
+      "rOrderNum": 6
+    },
+    {
+      "isOutputColumn": false,
+      "name": "MedianStandardDeviation",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "specifies the median of the standard deviations computed over the numerical input columns. Required only with smotenc.",
+      "description": "specifies the median of the standard deviations computed over the numerical input columns. Required only with smotenc.",
+      "datatype": "DOUBLE",
+      "allowsLists": false,
+      "rName": "median.standard.deviation",
+      "useInR": true,
+      "rOrderNum": 7
+    },
+    {
+      "isOutputColumn": false,
+      "name": "MinorityClass",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "specifies the minority class for which synthetic samples need to be generated. The label for minority class under response column must be numeric integer.",
+      "description": "specifies the minority class for which synthetic samples need to be generated. The label for minority class under response column must be numeric integer.",
+      "datatype": "STRING",
+      "allowsLists": false,
+      "rName": "minority.class",
+      "useInR": true,
+      "rOrderNum": 8
+    },
+    {
+      "isOutputColumn": false,
+      "defaultValue":5,
+      "allowNaN": false,
+      "name": "OversamplingFactor",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "specifies the factor for oversampling the minority class.",
+      "description": "specifies the factor for oversampling the minority class.",
+      "datatype": "DOUBLE",
+      "allowsLists": false,
+      "rName": "oversampling.factor",
+      "useInR": true,
+      "rOrderNum": 9
+    },
+    {
+      "permittedValues": ["smote", "adasyn", "borderline","smotenc"],
+      "isOutputColumn": false,
+      "defaultValue": "smote",
+      "name": "SamplingStrategy",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "specifies the oversampling algorithm to be used to create synthetic samples.",
+      "description": "specifies the oversampling algorithm to be used to create synthetic samples.",
+      "datatype": "STRING",
+      "allowsLists": false,
+      "rName": "sampling.strategy",
+      "useInR": true,
+      "rOrderNum": 10
+    },
+    {
+      "defaultValue": true,
+      "isOutputColumn": false,
+      "name": "FillSampleID",
+      "isRequired": false,
+      "rDescription": "A boolean flag which specifies whether the function should write out the id of the observation used to generate the corresponding new synthetic observations.",
+      "description": "A boolean flag which specifies whether the function should write out the id of the observation used to generate the corresponding new synthetic observations.",
+      "datatype": "BOOLEAN",
+      "allowsLists": false,
+      "rName": "fill.sampleid",
+      "useInR": true,
+      "rOrderNum": 11
+    },
+    {
+      "permittedValues": ["sample", "neighbor", "null"],
+      "isOutputColumn": false,
+      "defaultValue": "sample",
+      "name": "ValueForNonInputColumns",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the value to put in a sample column for columns not specified as input columns.",
+      "description": "Specifies the value to put in a sample column for columns not specified as input columns.",
+      "datatype": "STRING",
+      "allowsLists": false,
+      "rName": "noninput.columns.value",
+      "useInR": true,
+      "rOrderNum": 12
+    }, 
+    {
+      "defaultValue": 5,
+      "lowerBound": 2,
+      "upperBound": 100,
+      "lowerBoundType": "INCLUSIVE",
+      "upperBoundType": "INCLUSIVE",
+      "allowNaN": false,
+      "isOutputColumn": false,
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "NumberOfNeighbors",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the number of nearest neighbors for choosing the sample to be used in oversampling.",
+      "description": "Specifies the number of nearest neighbors for choosing the sample to be used in oversampling.",
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "rName": "n.neighbors",
+      "useInR": true,
+      "rOrderNum": 13
+    },
+    {
+      "lowerBound": 0,
+      "upperBound": 186006,
+      "lowerBoundType": "INCLUSIVE",
+      "upperBoundType": "INCLUSIVE",
+      "allowNaN": false,
+      "name": "Seed",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specify the random seed the algorithm uses for repeatable results. The function uses the seed for random interpolation and generate the synthetic sample.",
+      "description": "Specify the random seed the algorithm uses for repeatable results. The function uses the seed for random interpolation and generate the synthetic sample.",
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "rName": "seed",
+      "useInR": true,
+      "rOrderNum": 14
+    }
+  ]
+}
+

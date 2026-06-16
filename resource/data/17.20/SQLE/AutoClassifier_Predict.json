@@ -1,0 +1,89 @@
+{
+  "json_schema_major_version": "1",
+  "json_schema_minor_version": "1",
+  "json_content_version": "1",
+  "function_name": "AutoClassifier_Predict",
+  "function_version": "1.0",
+  "function_type": "fastpath",
+  "function_category": "Model Scoring",
+  "function_alias_name": "AutoClassifier_Predict",
+  "short_description": "Generates classification predictions using the best-performing models from an automated leaderboard.",
+  "long_description": "This function utilizes a classification model from the AutoClassifier leaderboard to create predictions and probabilities for a test dataset based on the specified model rank.",
+  "input_tables": [
+    {
+      "requiredInputKind": [
+        "PartitionByAny"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "InputTable",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specifies the table containing the input test data.",
+      "description": "Specifies the table containing the input test data.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "newdata",
+      "useInR": true,
+      "rOrderNum": 1
+    },
+    {
+      "requiredInputKind": [
+        "Dimension"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "ModelTable",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specifies the table containing the model/leaderboard data.",
+      "description": "Specifies the table containing the model/leaderboard data.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "object",
+      "useInR": true,
+      "rOrderNum": 2
+    }
+  ],
+  "argument_clauses": [
+    {
+      "defaultValue": 1,
+      "name": "Rank",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the rank of the model in the leaderboard to be used for prediction. Default value is 1.",
+      "description": "Specifies the rank of the model in the leaderboard to be used for prediction. Default value is 1.",
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "rName": "rank",
+      "useInR": true,
+      "rOrderNum": 3
+    },
+    {
+      "defaultValue": false,
+      "name": "UseLoadedModels",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies whether to use loaded models from database for prediction or not. Default value is False.",
+      "description": "Specifies whether to use loaded models from database for prediction or not. Default value is False.",
+      "datatype": "BOOLEAN",
+      "allowsLists": false,
+      "rName": "use.loaded.models",
+      "useInR": true,
+      "rOrderNum": 4
+    },
+    {
+      "defaultValue": false,
+      "name": "PreserveColumns",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies whether to preserve input data transformed columns in the output prediction. Default value: False.",
+      "description": "Specifies whether to preserve input data transformed columns in the output prediction. Default value: False.",
+      "datatype": "BOOLEAN",
+      "allowsLists": false,
+      "rName": "preserve.columns",
+      "useInR": true,
+      "rOrderNum": 5
+    }
+  ]
+}

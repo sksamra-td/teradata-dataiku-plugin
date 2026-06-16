@@ -1,0 +1,193 @@
+{
+  "json_schema_major_version": "1",
+  "json_schema_minor_version": "1",
+  "json_content_version": "1",
+  "function_name": "TD_NaiveBayes",
+  "function_version": "1.0",
+  "function_alias_name": "TD_NaiveBayes",
+  "function_type": "fastpath",
+  "function_category": "Model Training",
+  "function_r_name": "aa.td_naivebayes",
+  "short_description": "This function generates classification model using NaiveBayes algorithm.",
+  "long_description": "This function generates classification model using NaiveBayes algorithm.",
+  "input_tables": [
+    {
+      "requiredInputKind": [
+        "PartitionByAny"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "InputTable",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specifies the table containing the input training data.",
+      "description": "Specifies the table containing the input training data.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "data",
+      "useInR": true,
+      "rOrderNum": 1
+    }
+  ],
+  "argument_clauses": [
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "INTEGER","STRING"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "ResponseColumn",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specifies the name of the input table column that contains the response values.",
+      "description": "Specifies the name of the input table column that contains the response values.",
+      "datatype": "COLUMNS",
+      "allowsLists": false,
+      "rName": "response.column",
+      "useInR": true,
+      "rOrderNum": 2
+   },
+   {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "NUMERIC"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "NumericInputs",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the name of the input table columns that contains the numeric attributes values.",
+      "description": "Specifies the name of the input table columns that contains the numeric attributes values.",
+      "datatype": "COLUMNS",
+      "allowsLists": true,
+      "rName": "numeric.inputs",
+      "useInR": true,
+      "rOrderNum": 3
+   },
+   {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "STRING"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "CategoricalInputs",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the name of the input table columns that contains the categorical attributes values.",
+      "description": "Specifies the name of the input table columns that contains the categorical attributes values.",
+      "datatype": "COLUMNS",
+      "allowsLists": true,
+      "rName": "categorical.inputs",
+      "useInR": true,
+      "rOrderNum": 4
+   },
+   {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "STRING"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "AttributeNameColumn",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the name of the input table column that contains the attributes names.",
+      "description": "Specifies the name of the input table columns that contains the attributes names.",
+      "datatype": "COLUMNS",
+      "allowsLists": false,
+      "rName": "attribute.name.column",
+      "useInR": true,
+      "rOrderNum": 5
+   },
+   {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+       "NUMERIC","STRING"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "AttributeValueColumn",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the name of the input table column that contains the attributes values.",
+      "description": "Specifies the name of the input table columns that contains the attributes values.",
+      "datatype": "COLUMNS",
+      "allowsLists": false,
+      "rName": "attribute.value.column",
+      "useInR": true,
+      "rOrderNum": 6
+   },
+   {
+      "permittedValues": [
+        "ALLNUMERIC",
+        "ALLCATEGORICAL"
+      ],
+      "isOutputColumn": false,
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "AttributeType",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the attribute type as ALLNUMERIC or ALLCATEGORICAL if all the attributes are of numeric type or categorical type respectively.",
+      "description": "Specifies the attribute type as ALLNUMERIC or ALLCATEGORICAL if all the attributes are of numeric type or categorical type respectively.",
+      "datatype": "STRING",
+      "allowsLists": false,
+      "rName": "attribute.type",
+      "useInR": true,
+      "rOrderNum": 7
+    },
+    {
+      "isOutputColumn": false,
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "NumericAttributes",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the numeric attributes names.",
+      "description": "Specifies the numeric attributes names.",
+      "datatype": "STRING",
+      "allowsLists": true,
+      "rName": "numeric.attributes",
+      "useInR": true,
+      "rOrderNum": 8
+    },
+    {
+      "isOutputColumn": false,
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "CategoricalAttributes",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the categorical attributes names.",
+      "description": "Specifies the categorical attributes names.",
+      "datatype": "STRING",
+      "allowsLists": true,
+      "rName": "categorical.attributes",
+      "useInR": true,
+      "rOrderNum": 9
+    }
+  ]
+}

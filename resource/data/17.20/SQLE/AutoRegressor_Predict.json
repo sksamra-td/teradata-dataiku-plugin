@@ -1,0 +1,83 @@
+{
+  "json_schema_major_version": "1",
+  "json_schema_minor_version": "1",
+  "json_content_version": "1",
+  "function_name": "AutoRegressor_Predict",
+  "function_version": "1.0",
+  "function_type": "fastpath",
+  "function_category": "Model Scoring",
+  "function_alias_name": "AutoRegressor_Predict",
+  "short_description": "Generates predictions using the best-performing models from an automated regression leaderboard.",
+  "long_description": "This function utilizes a model from the AutoRegressor leaderboard to create predictions on a response variable for a test dataset, allowing for rank selection and model loading preferences.",
+  "input_tables": [
+    {
+      "requiredInputKind": [
+        "PartitionByAny"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "InputTable",
+      "alternateNames": [],
+      "isRequired": true,
+      "description": "Specifies the table containing the input test data.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "useInR": true,
+      "rOrderNum": 1
+    },
+    {
+      "requiredInputKind": [
+        "Dimension"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "ModelTable",
+      "alternateNames": [],
+      "isRequired": true,
+      "description": "Specifies the table containing the model/leaderboard data.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "useInR": true,
+      "rOrderNum": 2
+    }
+  ],
+  "argument_clauses": [
+    {
+      "defaultValue": 1,
+      "name": "Rank",
+      "alternateNames": [],
+      "isRequired": false,
+      "description": "Specifies the rank of the model in the leaderboard to be used for prediction. Default value is 1.",
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "useInR": true,
+      "rOrderNum": 3
+    },
+    {
+      "defaultValue": false,
+      "name": "UseLoadedModels",
+      "alternateNames": [
+        "use_loaded_models"
+      ],
+      "isRequired": false,
+      "description": "Specifies whether to use loaded models from database for prediction or not. Default value is False.",
+      "datatype": "BOOLEAN",
+      "allowsLists": false,
+      "useInR": true,
+      "rOrderNum": 4
+    },
+    {
+      "defaultValue": false,
+      "name": "PreserveColumns",
+      "alternateNames": [
+        "preserve_columns"
+      ],
+      "isRequired": false,
+      "description": "Specifies whether to preserve input data transformed columns in the output prediction. Default value: False.",
+      "datatype": "BOOLEAN",
+      "allowsLists": false,
+      "useInR": true,
+      "rOrderNum": 5
+    }
+  ]
+}

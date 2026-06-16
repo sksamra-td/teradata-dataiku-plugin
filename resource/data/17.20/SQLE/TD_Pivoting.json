@@ -1,0 +1,280 @@
+{
+    "json_schema_major_version": "1",
+    "json_schema_minor_version": "1",
+    "json_content_version": "1",
+    "function_name": "TD_Pivoting",
+    "function_version": "1.0",
+    "function_alias_name": "TD_Pivoting",
+    "function_type": "fastpath",
+    "function_category": "Feature Engineering Transform",
+    "function_r_name": "aa.td.pivoting",
+    "short_description": "This function is used to pivot the data i.e. change the data from sparse format to dense format.",
+    "long_description": "This function is used to pivot the data i.e. change the data from sparse format to dense format.",
+    "input_tables": [
+      {
+        "requiredInputKind": [
+          "PartitionByKey"
+        ],
+        "isOrdered": false,
+        "partitionByOne": false,
+        "name": "InputTable",
+        "alternateNames": [],
+        "isRequired": true,
+        "rDescription": "Specifies the table containing the input data to be pivoted.",
+        "description": "Specifies the table containing the input data to be pivoted.",
+        "datatype": "TABLE_ALIAS",
+        "allowsLists": false,
+        "rName": "data",
+        "useInR": true,
+        "rOrderNum": 1
+      }
+    ],
+    "argument_clauses": [
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "ALL"
+        ],
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "PartitionColumns",
+        "alternateNames": [],
+        "isRequired": true,
+        "rDescription": "Specify the name of the input table columns on which to partition the input.",
+        "description": "Specify the name of the input table columns on which to partition the input.",
+        "datatype": "COLUMNS",
+        "allowsLists": true,
+        "rName": "partition.columns",
+        "useInR": true,
+        "rOrderNum": 2
+      },
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "ALL"
+        ],
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "TargetColumns",
+        "alternateNames": [],
+        "isRequired": true,
+        "rDescription": "Specify the columns from the input table which contains the data for pivoting.",
+        "description": "Specify the columns from the input table which contains the data for pivoting.",
+        "datatype": "COLUMNS",
+        "allowsLists": true,
+        "rName": "target.columns",
+        "useInR": true,
+        "rOrderNum": 3
+      },
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "ALL"
+        ],
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "Accumulate",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specifies the input table columns to copy to the output table. By default, the function copies no input table columns to the output table.",
+        "description": "Specifies the input table columns to copy to the output table. By default, the function copies no input table columns to the output table.",
+        "datatype": "COLUMNS",
+        "allowsLists": true,
+        "rName": "accumulate",
+        "useInR": true,
+        "rOrderNum": 4
+      },
+      {
+        "lowerBound": 1,
+        "upperBound": 2147483647,
+        "lowerBoundType": "INCLUSIVE",
+        "upperBoundType": "INCLUSIVE",
+        "allowNaN": false,
+        "name": "RowsPerPartition",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specify the integer value which will specify the maximum number of rows in the partition.",
+        "description": "Specify the integer value which will specify the maximum number of rows in the partition.",
+        "datatype": "INTEGER",
+        "allowsLists": false,
+        "rName": "rows.per.partition",
+        "useInR": true,
+        "rOrderNum": 5
+      },
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "STRING"
+        ],
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "PivotColumn",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specify the name of the input table column that contains the pivot keys.",
+        "description": "Specify the name of the input table column that contains the pivot keys.",
+        "datatype": "COLUMNS",
+        "allowsLists": false,
+        "rName": "pivot.column",
+        "useInR": true,
+        "rOrderNum": 6
+      },
+      {
+        "permittedValues": [],
+        "isOutputColumn": false,
+        "checkDuplicate": true,
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "PivotKeys",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "If you specify the PivotColumn argument, then this argument specifies the names of the pivot keys.",
+        "description": "If you specify the PivotColumn argument, then this argument specifies the names of the pivot keys.",
+        "datatype": "STRING",
+        "allowsLists": true,
+        "rName": "pivot.keys",
+        "useInR": true,
+        "rOrderNum": 7
+      },
+      {
+        "permittedValues": [],
+        "isOutputColumn": false,
+        "checkDuplicate": true,
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "PivotKeysAlias",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "If you specify the PivotKeys argument, then this argument specifies the alias names of the pivot keys.",
+        "description": "If you specify the PivotKeys argument, then this argument specifies the alias names of the pivot keys.",
+        "datatype": "STRING",
+        "allowsLists": true,
+        "rName": "pivot.keys.alias",
+        "useInR": true,
+        "rOrderNum": 8
+      },
+      {
+        "permittedValues": [],
+        "isOutputColumn": false,
+        "checkDuplicate": false,
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "DefaultPivotValues",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specify exactly one default value for each pivot_key . The nth default_pivot_value applies to the nth pivot_key.",
+        "description": "Specify exactly one default value for each pivot_key . The nth default_pivot_value applies to the nth pivot_key.",
+        "datatype": "STRING",
+        "allowsLists": true,
+        "rName": "default.pivot.values",
+        "useInR": true,
+        "rOrderNum": 9
+      },
+      {
+        "permittedValues": [],
+        "isOutputColumn": false,
+        "checkDuplicate": false,
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "Aggregation",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specify the aggregation for the target columns. Aggregation can be provided as one of the single value {CONCAT | UNIQUE_CONCAT | SUM | MIN | MAX | AVG}  which will be applicable to all target columns or you can specify multiple values for multiple target columns in following format: ColumnName:{CONCAT|UNIQUE_CONCAT|SUM|MIN|MAX|AVG} [,...].",
+        "description": "Specify the aggregation for the target columns. Aggregation can be provided as one of the single value {CONCAT | UNIQUE_CONCAT | SUM | MIN | MAX | AVG}  which will be applicable to all target columns or you can specify multiple values for multiple target columns in following format: ColumnName:{CONCAT|UNIQUE_CONCAT|SUM|MIN|MAX|AVG} [,...].",
+        "datatype": "STRING",
+        "allowsLists": true,
+        "rName": "aggregation",
+        "useInR": true,
+        "rOrderNum": 10
+      },
+      {
+        "permittedValues": [],
+        "isOutputColumn": false,
+        "checkDuplicate": false,
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "Delimiters",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specify the delimiter to be used for concatenating the values of a target column. A delimiter is a single character string. You can specify a single delimiter values which will be applicable to all target columns or you can specify multiple delimiter values for multiple target columns in following format: ColumnName:single_char [,...].",
+        "description": "Specify the delimiter to be used for concatenating the values of a target column. A delimiter is a single character string. You can specify a single delimiter values which will be applicable to all target columns or you can specify multiple delimiter values for multiple target columns in following format: ColumnName:single_char [,...].",
+        "datatype": "STRING",
+        "allowsLists": true,
+        "rName": "delimiters",
+        "useInR": true,
+        "rOrderNum": 11
+      },
+      {
+        "permittedValues": [],
+        "isOutputColumn": false,
+        "checkDuplicate": false,
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "CombinedColumnSizes",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specify maximum size of the concatenated string. You can specify a single values which will be applicable to all target columns or you can specify multiple size value for multiple target columns in following format: ColumnName:size_value [,...].",
+        "description": "Specify maximum size of the concatenated string. You can specify a single values which will be applicable to all target columns or you can specify multiple size value for multiple target columns in following format: ColumnName:size_value [,...].",
+        "datatype": ["STRING", "INTEGER"],
+        "allowsLists": true,
+        "rName": "combined.column.sizes",
+        "useInR": true,
+        "rOrderNum": 12
+      },
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "ALL"
+        ],
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "TruncateColumns",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specify columns from the target columns for which you want to truncate the concatenated string, if it is longer than the specified size. ",
+        "description": "Specify columns from the target columns for which you want to truncate the concatenated string, if it is longer than the specified size. ",
+        "datatype": "COLUMNS",
+        "allowsLists": true,
+        "rName": "truncate.columns",
+        "useInR": true,
+        "rOrderNum": 13
+      },
+      {
+        "permittedValues": [],
+        "isOutputColumn": true,
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+
+        "name": "OutputColumnNames",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specify the column name to be used for the output column. The nth column name value applies to the nth output column.",
+        "description": "Specify the column name to be used for the output column. The nth column name value applies to the nth output column.",
+        "datatype": "STRING",
+        "allowsLists": true,
+        "rName": "output.column.names",
+        "useInR": true,
+        "rOrderNum": 14
+      }
+    ]
+  }

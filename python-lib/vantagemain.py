@@ -20,6 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 import pprint
 import logging
 import json
+import time
 import dataiku
 from dataiku import Dataset
 from dataiku.customrecipe import *
@@ -194,7 +195,7 @@ def vantageDo():
     logging.info(SEP)
 
     # Add Query Band
-    query_band = "SET QUERY_BAND='appname=dataiku;version=3.4;" + "function=" +  verifyAttribute(recipe_config.get('function', {}).get('name',''))  + ";' FOR SESSION;"
+    query_band = "SET QUERY_BAND='org=teradata-internal-telem;appname=dataiku;version=4.0;" + "function=" +  verifyAttribute(recipe_config.get('function', {}).get('name','')) + ";' FOR SESSION;"
     
     # VALIB     
     dss_function = recipe_config.get('function', None)
@@ -205,6 +206,46 @@ def vantageDo():
             pre_query = [query_band]
         dataiku_valib_execution(dss_function, connections, inputConnectionName, executor, autocommit, pre_query, post_query, output_table_names)
         return
+
+    # --- AUTO ML SUPPORT ---
+    # Define the updated consistent aliases from your JSONs
+    automl_aliases = [
+        'AutoClassifier_Fit', 
+        'AutoClassifier_Predict', 
+        'AutoRegressor_Fit',
+        'AutoRegressor_Predict',
+        'AutoChurn_Fit',
+        'AutoChurn_Predict',
+        'AutoFraud_Fit',
+        'AutoFraud_Predict',
+        'AutoCluster_Fit',
+        'AutoCluster_Predict'
+    ]
+
+    current_alias = dss_function.get('function_alias_name')
+
+    if current_alias in automl_aliases:
+        import automl_handler
+        logging.info(f"Routing {current_alias} to Python AutoML handler...")
+        
+        # Call the unified handler
+        out_table, out_db = automl_handler.handle_autoclassifier(
+            dss_function, 
+            input_table_names, 
+            output_table_names
+        )
+        
+        # Sync schema back to Dataiku
+        set_schema_from_vantage(
+            out_table, 
+            output_dataset, 
+            executor, 
+            post_query, 
+            autocommit, 
+            pre_query, 
+            outputDatabaseName=out_db
+        )
+        return  # Exit to skip standard SQL execution
 
     # output dataset
     outputTable = output_table_names[0]["table"]

@@ -1,0 +1,181 @@
+{
+  "json_schema_major_version": "1",
+  "json_schema_minor_version": "1",
+  "json_content_version": "1",
+  "function_name": "TD_Apriori",
+  "function_version": "1.0",
+  "function_alias_name": "TD_Apriori",
+  "function_type": "fastpath",
+  "function_category": "Association Analysis",
+  "function_r_name": "aa.td.apriori",
+  "short_description": "This function finds the patterns and calculates different statistical metrics to understand the influence of occurrance of set of items on other.",
+  "long_description": "This function finds the patterns and calculates different statistical metrics to understand the influence of occurrance of set of items on other.",
+  "input_tables": [
+    {
+      "requiredInputKind": [
+        "PartitionByAny"
+      ],
+      "isOrdered": false,
+      "partitionByOne": false,
+      "name": "InputTable",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specifies the table containing the input data.",
+      "description": "Specifies the table containing the input data.",
+      "datatype": "TABLE_ALIAS",
+      "allowsLists": false,
+      "rName": "data",
+      "useInR": true,
+      "rOrderNum": 1
+    }
+  ],
+  "argument_clauses": [
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "STRING"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "TargetColumn",
+      "alternateNames": [],
+      "isRequired": true,
+      "rDescription": "Specify the column from the input table which contains the data.",
+      "description": "Specify the column from the input table which contains the data.",
+      "datatype": "COLUMNS",
+      "allowsLists": false,
+      "rName": "target.column",
+      "useInR": true,
+      "rOrderNum": 2
+    },
+    {
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "ALL"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "IDColumn",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the ID column to identify a datapoint(set of rows belong to same data) in a sparse input. Applicable only when isDenseInput is False",
+      "description": "Specifies the ID column to identify a datapoint(set of rows belong to same data) in a sparse input. Applicable only when isDenseInput is False",
+      "datatype": "COLUMNS",
+      "allowsLists": true,
+      "rName": "id.column",
+      "useInR": true,
+      "rOrderNum": 3
+    },
+	{
+      "targetTable": [
+        "InputTable"
+      ],
+      "checkDuplicate": true,
+      "allowedTypes": [],
+      "allowedTypeGroups": [
+        "ALL"
+      ],
+      "matchLengthOfArgument": "",
+      "allowPadding": false,
+      "name": "PartitionColumns",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specify the name of the input table columns on which to partition the input.",
+      "description": "Specify the name of the input table columns on which to partition the input.",
+      "datatype": "COLUMNS",
+      "allowsLists": true,
+      "rName": "partition.columns",
+      "useInR": true,
+      "rOrderNum": 4
+    },
+    {
+      "defaultValue": 2,
+      "lowerBound": 1,
+      "upperBound": 20,
+      "lowerBoundType": "INCLUSIVE",
+      "upperBoundType": "INCLUSIVE",
+      "allowNaN": false,
+      "name": "MaxLen",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specifies the number of items in item set. The default value is 2.",
+      "description": "Specifies the number of items in item set. The default value is 2.",
+      "datatype": "INTEGER",
+      "allowsLists": false,
+      "rName": "max.len",
+      "useInR": true,
+      "rOrderNum": 5
+    },
+    {
+      "permittedValues": [],
+      "defaultValue": ",",
+      "isOutputColumn": false,
+      "name": "Delimiter",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "A character or string separates words in the input text. The default value is the comma. Applicable only when isDenseInput is True.",
+      "description": "A character or string separates words in the input text. The default value is the comma. Applicable only when isDenseInput is True.",
+      "datatype": "STRING",
+      "allowsLists": false,
+      "rName": "delimiter",
+      "useInR": true,
+      "rOrderNum": 6
+    },	
+    {
+      "defaultValue": false,
+      "name": "isDenseInput",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "A Boolean value that specifies whether the input to the function is in dense format. Default is false (sparse format).",
+      "description": "A Boolean value that specifies whether the input to the function is in dense format. Default is false (sparse format).",
+      "datatype": "BOOLEAN",
+      "allowsLists": false,
+      "rName": "is.dense.input",
+      "useInR": true,
+      "rOrderNum": 7
+    },	
+    {
+      "permittedValues": [
+        "PATTERNS", 
+        "RULES"
+      ],
+      "isOutputColumn": false,
+      "name": "PatternsOrRules",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specify whether to emit PATTERNS or RULES as output.",
+      "description": "Specify whether to emit PATTERNS or RULES as output.",
+      "datatype": "STRING",
+      "allowsLists": false,
+      "rName": "patterns.or.rules",
+      "useInR": true,
+      "rOrderNum": 8
+    },
+    {
+      "defaultValue": 0.01,
+      "lowerBound": 0,
+      "upperBound": 1,
+      "lowerBoundType": "EXCLUSIVE",
+      "upperBoundType": "INCLUSIVE",
+      "allowNaN": false,
+      "name": "Support",
+      "alternateNames": [],
+      "isRequired": false,
+      "rDescription": "Specify the support value (minimum occurrance threshold) of itemset.",
+      "description": "Specify the support value (minimum occurrance threshold) of itemset.",
+      "datatype": "DOUBLE",
+      "allowsLists": false,
+      "rName": "support",
+      "useInR": true,
+      "rOrderNum": 9
+    }	
+  ]
+}

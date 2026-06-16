@@ -1,0 +1,118 @@
+{
+    "json_schema_major_version": "1",
+    "json_schema_minor_version": "1",
+    "json_content_version": "1",
+    "function_name": "TD_CFilter",
+    "function_version": "1.0",
+    "function_alias_name": "TD_CFilter",
+    "function_type": "fastpath",
+    "function_category": "Association Analysis",
+    "function_r_name": "aa.td.cfilter",
+    "short_description": "This function calculates several statistical measures of how likely each pair of items is to be purchased together.",
+    "long_description": "This function calculates several statistical measures of how likely each pair of items is to be purchased together.",
+    "input_tables": [
+      {
+        "requiredInputKind": [
+          "PartitionByAny"
+        ],
+        "isOrdered": false,
+        "partitionByOne": false,
+        "name": "InputTable",
+        "alternateNames": [],
+        "isRequired": true,
+        "rDescription": "Specifies the table containing the input data to filter.",
+        "description": "Specifies the table containing the input data to filter.",
+        "datatype": "TABLE_ALIAS",
+        "allowsLists": false,
+        "rName": "data",
+        "useInR": true,
+        "rOrderNum": 1
+      }
+    ],
+    "argument_clauses": [
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "STRING"
+        ],
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "TargetColumn",
+        "alternateNames": [],
+        "isRequired": true,
+        "rDescription": "Specify the column from the input table which contains the data for filter.",
+        "description": "Specify the column from the input table which contains the data for filter.",
+        "datatype": "COLUMNS",
+        "allowsLists": false,
+        "rName": "target.column",
+        "useInR": true,
+        "rOrderNum": 2
+      },
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "ALL"
+        ],
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "TransactionIDColumns",
+        "alternateNames": [],
+        "isRequired": true,
+        "rDescription": "Specifies the transactionID column to define groups of items listed in the input columns that are purchased together.",
+        "description": "Specifies the transactionID column to define groups of items listed in the input columns that are purchased together.",
+        "datatype": "COLUMNS",
+        "allowsLists": true,
+        "rName": "transaction.id.columns",
+        "useInR": true,
+        "rOrderNum": 3
+      },
+      {
+        "targetTable": [
+          "InputTable"
+        ],
+        "checkDuplicate": true,
+        "allowedTypes": [],
+        "allowedTypeGroups": [
+          "ALL"
+        ],
+        "matchLengthOfArgument": "",
+        "allowPadding": false,
+        "name": "PartitionColumns",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specify the name of the input table columns on which to partition the input.",
+        "description": "Specify the name of the input table columns on which to partition the input.",
+        "datatype": "COLUMNS",
+        "allowsLists": true,
+        "rName": "partition.columns",
+        "useInR": true,
+        "rOrderNum": 4
+      },
+      {
+        "defaultValue": 100,
+        "lowerBound": 0,
+        "upperBound": 2147483647,
+        "lowerBoundType": "INCLUSIVE",
+        "upperBoundType": "INCLUSIVE",
+        "allowNaN": false,
+        "name": "MaxDistinctItems",
+        "alternateNames": [],
+        "isRequired": false,
+        "rDescription": "Specifies the maximum size of the item set. The default value is 100.",
+        "description": "Specifies the maximum size of the item set. The default value is 100.",
+        "datatype": "INTEGER",
+        "allowsLists": false,
+        "rName": "max.distinct.items",
+        "useInR": true,
+        "rOrderNum": 5
+      }
+    ]
+  }
