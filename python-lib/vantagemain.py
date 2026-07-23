@@ -195,7 +195,7 @@ def vantageDo():
     logging.info(SEP)
 
     # Add Query Band
-    query_band = "SET QUERY_BAND='org=teradata-internal-telem;appname=dataiku;version=4.0;" + "function=" +  verifyAttribute(recipe_config.get('function', {}).get('name','')) + ";' FOR SESSION;"
+    query_band = "SET QUERY_BAND='org=teradata-internal-telem;appname=dataiku;version=4.1;" + "function=" +  verifyAttribute(recipe_config.get('function', {}).get('name','')) + ";' FOR SESSION;"
     
     # VALIB     
     dss_function = recipe_config.get('function', None)

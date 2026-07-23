@@ -225,7 +225,7 @@ if scoring_type == 'onnx':
 logging.info(f"Prediction Query ==> {query}")
 
 
-query_band = "SET QUERY_BAND='org=teradata-internal-telem;appname=dataiku;version=4.0;" + "function= BYOM Scoring" + ";' FOR SESSION;"
+query_band = "SET QUERY_BAND='org=teradata-internal-telem;appname=dataiku;version=4.1;" + "function= BYOM Scoring" + ";' FOR SESSION;"
 
 # Execute the query
 try:
