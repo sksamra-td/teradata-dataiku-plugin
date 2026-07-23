@@ -6,8 +6,6 @@ import json
 import logging
 from verifyTableColumns import *
 import auth
-import dataiku
-import dataiku
 import pandas as pd, numpy as np
 from dataiku import pandasutils as pdu
 
@@ -62,7 +60,10 @@ if sourcetype == 'folder':
 
 
 
-connection_name = str(get_recipe_config()["connection_name"][0])
+connection_name_raw = get_recipe_config()["connection_name"]
+if not connection_name_raw:
+    raise Exception("No Vantage connection selected. Please add a connection in the recipe settings.")
+connection_name = str(connection_name_raw[0]) if isinstance(connection_name_raw, list) else str(connection_name_raw)
 dss_connection_prams = client.get_connection(name=connection_name).get_info().get_params()
 
 connection_info = client.get_connection(name=connection_name).get_info()
@@ -165,7 +166,15 @@ if modeltype_param=='pmml':
 elif modeltype_param=='native':
     model_data = client.get_project(project_key).get_saved_model(saved_model_id).get_version_details(version_id).get_scoring_jar_stream(include_libs=True).content
 
-elif modeltype_param=='onnx' or modeltype_param=='h2o':
+elif modeltype_param=='onnx':
+    if sourcetype == 'model':
+        model_data = client.get_project(project_key).get_saved_model(saved_model_id).get_version_details(version_id).get_scoring_artifact_stream("model.onnx").content
+    else:
+        file = str(get_recipe_config()["files"])
+        with folder.get_download_stream(file) as stream:
+            model_data = stream.read()
+
+elif modeltype_param=='h2o':
     # Initially the name of the file is given to 'file' then iterated over the existing paths to see if a path name contains the file name,
     # if true it is obtained as a byte stream and uploaded else a error is raised.
     file = str(get_recipe_config()["files"])

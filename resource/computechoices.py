@@ -41,9 +41,12 @@ def do(payload, config, plugin_config, inputs):
 
     if payload.get('parameterName') == 'table_name':
         mdbs_name = config.get("model_database_name")
-        if not mdbs_name :
+        if not mdbs_name:
             mdbs_name = config.get("user_Typed_DBName")
-            
+
+        if not mdbs_name:
+            return {"choices": []}
+
         print(f"mdbs_name value = {mdbs_name}")
         query = f"select TableName from DBC.TablesV WHERE TableKind = 'T' and LOWER(Databasename) = {verifyModelName(mdbs_name)} order by TableName"
         tablesListDF = conn.query_to_df(query)
@@ -56,9 +59,12 @@ def do(payload, config, plugin_config, inputs):
     
     if payload.get('parameterName') == 'H2OLicense_DropDown_Table_Name':
         license_db_name = config.get("H2OLicense_DropDown_DB_Name")
-        if not license_db_name :
+        if not license_db_name:
             license_db_name = config.get("user_Typed_License_DB_Name")
-            
+
+        if not license_db_name:
+            return {"choices": []}
+
         query = f"select TableName from DBC.TablesV WHERE TableKind = 'T' and LOWER(Databasename) = {verifyDatabaseName(license_db_name, True)} order by TableName"
         tablesListDF = conn.query_to_df(query)
         dict_names = tablesListDF.to_dict()["TableName"]
@@ -71,14 +77,17 @@ def do(payload, config, plugin_config, inputs):
     
     if payload.get('parameterName') == 'model_name':
         mdbs_name = config.get("model_database_name")
-        if not mdbs_name :
+        if not mdbs_name:
             mdbs_name = config.get("user_Typed_DBName")
 
         tbl_name = config.get("table_name")
         if not tbl_name:
             tbl_name = config.get("user_Typed_TBLName")
-        
-        print(f"tbl_name =====> {verifyDatabaseName(mdbs_name)}.{verifyTableName(tbl_name)}")    
+
+        if not mdbs_name or not tbl_name:
+            return {"choices": []}
+
+        print(f"tbl_name =====> {verifyDatabaseName(mdbs_name)}.{verifyTableName(tbl_name)}")
         # Create the Dataiku SQL Executor
         query = f"select model_id from {verifyDatabaseName(mdbs_name)}.{verifyTableName(tbl_name)}"
         tablesListDF = conn.query_to_df(query)
@@ -90,26 +99,25 @@ def do(payload, config, plugin_config, inputs):
         return {"choices": choices}
     
     if payload.get('parameterName')=='files':
-        
-        # Get the input managed folder object
+        input_folder = None
         for input in inputs:
-            if(input.get('role') == 'main'):
-                inputtablename = input['fullName'].split('.')[1]
-                project = input['fullName'].split('.')[0]
-                inputDataSets.append(inputtablename)
-                if not connection:
-                    inputdataset = dataiku.Dataset(inputtablename)
-                    connection = getConnectionParamsFromDataset(inputdataset).get('connectionParams', {})
-            else:
-                inputfoldername = input['fullName'].split('.')[1]
-                input_folder =  dataiku.Folder(inputfoldername)
-        #input_folder = dataiku.Folder("onnxmodelorigin")
-        
+            if input.get('role') == 'source':
+                try:
+                    inputfoldername = input['fullName'].split('.')[1]
+                    input_folder = dataiku.Folder(inputfoldername)
+                    input_folder.list_paths_in_partition()
+                    break
+                except:
+                    input_folder = None
+
+        if input_folder is None:
+            return {"choices": []}
+
         files = input_folder.list_paths_in_partition()
-        dict_names={file:file for file in files}
+        dict_names = {file: file for file in files}
         choices = []
         for key in dict_names:
-            dict = { "value" : dict_names[key].strip("/"), "label" : dict_names[key].strip("/")}
+            dict = {"value": dict_names[key].strip("/"), "label": dict_names[key].strip("/")}
             choices.append(dict)
         return {"choices": choices}
 

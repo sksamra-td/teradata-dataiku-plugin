@@ -1,10 +1,18 @@
 # Teradata Plugin Changelog
 
+# Versions 4.1.12 (eFix - July 2026)
+
+* Bug fix: BYOM Model Export - Fixed a crash on page load caused by DSS 14.6 now triggering UI code for hidden parameters before the user has selected anything
+* Bug fix: BYOM Model Export — Added a mandatory flag to the Vantage connection field to prevent running without a connection selected
+* Bug fix: BYOM Scoring — Fixed a crash on page load for the same reason — hidden dropdown parameters being triggered before the user has filled in dependent fields
+
+
 # Versions 4.0.12 (June 2026)
 
 * Added over 10 new 17.20 functions
 * Added AutoML predict and fit functions (AutoChurn_Fit, AutoChurn_Predict, AutoClassifier_Fit, AutoClassifier_Predict, AutoRegressor_Fit, AutoRegressor_Predict, AutoCluster_Fit, AutoCluster_Predict, AutoFraud_Fit, AutoFraud_Predict)
-* Fixed Query band.
+* Fixed Query band.
+
 
 # Versions 3.4.11, 3.4.12 (eFix - May 2025)
 

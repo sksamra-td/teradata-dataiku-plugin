@@ -126,7 +126,8 @@
             "type": "CONNECTIONS",
             "name": "connection_name",
             "label": "Select Connection",
-            "description": "Select an existing Dataiku-to-Vantage connection"
+            "description": "Select an existing Dataiku-to-Vantage connection",
+            "mandatory": true
         },
 //        {
 //            "name": "encryption",
